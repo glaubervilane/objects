@@ -43,23 +43,40 @@ printPlaylists()
 // t02: Model View Controller by James Dempsey (WWDC 2003)
 // t03: Four Thirty-Three by John Cage (Woodstock 1952)
 const printTracks = function() {
-
+  for (const track of Object.values(library.tracks)) {
+    console.log(`${track.id}: ${track.name} by ${track.artist} (${track.album})`);
+  }
 }
-
+printTracks()
 
 // prints a list of tracks for a given playlist, using the following format:
 // p01: Coding Music - 2 tracks
 // t01: Code Monkey by Jonathan Coulton (Thing a Week Three)
 // t02: Model View Controller by James Dempsey (WWDC 2003)
 const printPlaylist = function(playlistId) {
-
+  const playlist = library.playlists[playlistId];
+  const tracks = playlist.tracks;
+  const playlistName = playlist.name;
+  const numTracks = tracks.length;
+  console.log(`${playlistId}: ${playlistName} - ${numTracks} tracks`);
+  for (let trackId of tracks) {
+    const track = library.tracks[trackId];
+    const trackName = track.name;
+    const trackArtist = track.artist;
+    const trackAlbum = track.album;
+    console.log(`${trackId}: ${trackName} by ${trackArtist} (${trackAlbum})`);
+  }
 }
+printPlaylist("p01")
 
 
 // adds an existing track to an existing playlist
 const addTrackToPlaylist = function(trackId, playlistId) {
-
+  const playlist = library.playlists[playlistId];
+  playlist.tracks.push(trackId);
+  console.log(`Added "${library.tracks[trackId].name}" to playlist "${playlist.name}".`);
 }
+addTrackToPlaylist('t01', 'p01')
 
 
 // generates a unique id
