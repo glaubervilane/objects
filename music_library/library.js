@@ -1,3 +1,11 @@
+const assertEqual = function(actual, expected) {
+  if (actual === expected) {
+    console.log(`✅✅✅ Assertion Passed: ${actual} === ${expected}`);
+  } else {
+    console.log(`🛑🛑🛑 Assertion Failed: ${actual} !== ${expected}`);
+  }
+};
+
 const library = {
   tracks: {
     t01: {
@@ -46,6 +54,12 @@ const printPlaylists = function() {
   }
 };
 //Test debugging: printPlaylists()
+console.log("Testing printPlaylists:");
+printPlaylists();  // Expects:
+/*
+p01: Coding Music - 2 tracks
+p02: Other Playlist - 1 tracks
+*/
 
 
 // prints a list of all tracks, using the following format:
@@ -58,6 +72,13 @@ const printTracks = function() {
   }
 };
 //Test debugging: printTracks()
+console.log("Testing printTracks:");
+printTracks();  // Expects:
+/*
+t01: Code Monkey by Jonathan Coulton (Thing a Week Three)
+t02: Model View Controller by James Dempsey (WWDC 2003)
+t03: Four Thirty-Three by John Cage (Woodstock 1952)
+*/
 
 // prints a list of tracks for a given playlist, using the following format:
 // p01: Coding Music - 2 tracks
@@ -78,6 +99,18 @@ const printPlaylist = function(playlistId) {
   }
 };
 //Test debugging: printPlaylist("p01")
+console.log("Testing printPlaylist:");
+printPlaylist("p01");  // Expects:
+/*
+p01: Coding Music - 2 tracks
+t01: Code Monkey by Jonathan Coulton (Thing a Week Three)
+t02: Model View Controller by James Dempsey (WWDC 2003)
+*/
+printPlaylist("p02");  // Expects:
+/*
+p02: Other Playlist - 1 tracks
+t03: Four Thirty-Three by John Cage (Woodstock 1952)
+*/
 
 
 // adds an existing track to an existing playlist
@@ -87,7 +120,14 @@ const addTrackToPlaylist = function(trackId, playlistId) {
   console.log(`Added "${library.tracks[trackId].name}" to playlist "${playlist.name}".`);
 };
 //Test debugging: addTrackToPlaylist('t01', 'p01')
-
+console.log("Testing addTrackToPlaylist:");
+addTrackToPlaylist('t01', 'p02');  // Expects: Added "Code Monkey" to playlist "Other Playlist".
+printPlaylist("p02");  // Expects:
+/*
+p02: Other Playlist - 2 tracks
+t03: Four Thirty-Three by John Cage (Woodstock 1952)
+t01: Code Monkey by Jonathan Coulton (Thing a Week Three)
+*/
 
 // generates a unique id
 // (already implemented: use this for addTrack and addPlaylist)
@@ -105,7 +145,16 @@ const addTrack = function(name, artist, album) {
     album: album
   };
 };
-
+// Tests for addTrack
+console.log("Testing addTrack:");
+addTrack("Test Track", "Test Artist", "Test Album");
+printTracks();  // Expects:
+/*
+t01: Code Monkey by Jonathan Coulton (Thing a Week Three)
+t02: Model View Controller by James Dempsey (WWDC 2003)
+t03: Four Thirty-Three by John Cage (Woodstock 1952)
+t04: Test Track by Test Artist (Test Album)
+*/
 
 // adds a playlist to the library
 const addPlaylist = function(name) {
@@ -116,7 +165,15 @@ const addPlaylist = function(name) {
     tracks: []
   };
 };
-
+// Tests for addPlaylist
+console.log("Testing addPlaylist:");
+addPlaylist("Test Playlist");
+printPlaylists();  // Expects:
+/*
+p01: Coding Music - 2 tracks
+p02: Other Playlist - 2 tracks
+p03: Test Playlist - 0 tracks
+*/
 
 // STRETCH:
 // given a query string string, prints a list of tracks
@@ -143,3 +200,25 @@ const printSearchResults = function(query) {
     console.log("No matching tracks found.");
   }
 };
+console.log("Testing printSearchResults:");
+printSearchResults("John");  // Expects:
+/*
+Search results for query "John":
+t03: Four Thirty-Three by John Cage (Woodstock 1952)
+*/
+printSearchResults("Model");  // Expects:
+/*
+Search results for query "Model":
+t02: Model View Controller by James Dempsey (WWDC 2003)
+*/
+printSearchResults("test");  // Expects:
+/*
+Search results for query "test":
+t04: Test Track by Test Artist (Test Album)
+p03: Test Playlist - 0 tracks
+*/
+printSearchResults("Invalid Query");  // Expects:
+/*
+Search results for query "Invalid Query":
+No matching tracks found.
+*/
