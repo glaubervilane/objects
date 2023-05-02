@@ -1,11 +1,3 @@
-const assertEqual = function(actual, expected) {
-  if (actual === expected) {
-    console.log(`✅✅✅ Assertion Passed: ${actual} === ${expected}`);
-  } else {
-    console.log(`🛑🛑🛑 Assertion Failed: ${actual} !== ${expected}`);
-  }
-};
-
 const library = {
   tracks: {
     t01: {
@@ -137,7 +129,7 @@ const generateUid = function() {
 
 // adds a track to the library
 const addTrack = function(name, artist, album) {
-  const id = 't' + Object.keys(library.tracks).length + 1;
+  const id = 't' + generateUid(); // use the generated ID instead of incrementing the length of the tracks array
   library.tracks[id] = {
     id: id,
     name: name,
