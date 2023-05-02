@@ -109,7 +109,7 @@ const addTrack = function(name, artist, album) {
 
 // adds a playlist to the library
 const addPlaylist = function(name) {
-  const playlistId = generateId(library.playlists);
+  const playlistId = 'p' + (Object.keys(library.playlists).length + 1);
   library.playlists[playlistId] = {
     id: playlistId,
     name: name,
@@ -124,5 +124,22 @@ const addPlaylist = function(name) {
 // tip: use "string".search("tri")
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/search
 const printSearchResults = function(query) {
+  const tracks = Object.values(library.tracks);
 
+  const matchingTracks = tracks.filter(function(track) {
+    const nameMatches = track.name.toLowerCase().includes(query.toLowerCase());
+    const artistMatches = track.artist.toLowerCase().includes(query.toLowerCase());
+    const albumMatches = track.album.toLowerCase().includes(query.toLowerCase());
+
+    return nameMatches || artistMatches || albumMatches;
+  });
+
+  console.log(`Search results for query "${query}":`);
+  if (matchingTracks.length > 0) {
+    matchingTracks.forEach(function(track) {
+      console.log(`${track.id}: ${track.name} by ${track.artist} (${track.album})`);
+    });
+  } else {
+    console.log("No matching tracks found.");
+  }
 };
