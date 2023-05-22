@@ -9,11 +9,11 @@ stdin.setEncoding('utf8');
 
 // on any input from stdin (standard input), output a "." to stdout
 stdin.on('data', (key) => {
-  process.stdout.write('.');  
+  process.stdout.write('.');
   // \u0003 maps to ctrl+c input
   if (key === '\u0003') {
     process.exit();
-}
-});
+  }
 
-console.log('after callback');
+  console.log('after callback');
+});

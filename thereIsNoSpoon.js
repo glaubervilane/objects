@@ -1,6 +1,6 @@
 //Done as part of pair programming with @KunleDev2
 
-const transpose = function (matrix) {
+const transpose = function(matrix) {
   // Replace this code with your solution
   let transposed = [];
   for (let i = 0; i < matrix[0].length; i++) {
